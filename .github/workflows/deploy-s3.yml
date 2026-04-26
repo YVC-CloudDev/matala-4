@@ -20,15 +20,15 @@ name: Deploy to S3
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 permissions:
-  id-token: write    # Required for OIDC token generation
-  contents: read     # Required to checkout the repo
+  id-token: write
+  contents: read
 
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: eu-central-1
 
 jobs:
   deploy:
@@ -39,7 +39,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials (OIDC)
+      - name: Configure AWS credentials OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
